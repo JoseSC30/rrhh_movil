@@ -65,10 +65,10 @@ class Comunicado {
   factory Comunicado.fromJson(Map json) {
     return Comunicado(
       id: json["id"],
-      titulo: json["nombre"],
+      titulo: json["titulo"],
       detalle: json["detalle"],
-      fecha: json["fecha_inicio"],
-      hora: json["fecha_final"],
+      fecha: json["fecha"],
+      hora: json["hora"],
     );
   }
 }

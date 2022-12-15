@@ -9,9 +9,8 @@ import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
 import '../main.dart';
 import '../usuario.dart';
 
-//Lista donde se van a guardar los comunicados.
+//LISTA DONDE SE GUARDAN LOS COMUNICADOS.
 List<Comunicado> comunicados = [];
-var aaa = "hola";
 //
 
 class Principal extends StatefulWidget {
@@ -149,12 +148,14 @@ class PrincipalState extends State<Principal> {
     );
   }
 
+  //En "comunicaLista" guardo lo que consumo del API.
   Future<void> getComunicados() async {
-    final comunicaObtenidos =
-        await http.get(Uri.parse("http://10.0.2.2:8000/api/get_comunicados"));
+    final comunicaObtenidos = await http
+        .get(Uri.parse("http://10.0.2.2:8000/api/get_comunicados")); //API
     final comunicaLista = List.from(jsonDecode(comunicaObtenidos.body));
 
-    //List<Comunicado> comunicados = [];
+    //Los elementos dentro de "ComunicaLista", lo guardo
+    //en la lista "comunicados".
     comunicaLista.forEach((element) {
       final Comunicado comunicado = Comunicado.fromJson(element);
       comunicados.add(comunicado);
