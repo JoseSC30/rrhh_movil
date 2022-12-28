@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
-
+import 'package:http/http.dart' as http;
+import '../funciones_extracion.dart';
 import '../main.dart';
 import '../usuario.dart';
 
 import 'package:flutter/services.dart';
 
 import 'dart:io';
-
-List<Comunicado> comun = comunicados;
 
 class Comunicados extends StatefulWidget {
   const Comunicados({super.key});
@@ -24,8 +23,8 @@ class Comunicados extends StatefulWidget {
 class _ComunicadosState extends State<Comunicados> {
   @override
   Widget build(BuildContext context) {
-    void generarlistas() {} //
-    ;
+    getComunicados();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
@@ -102,63 +101,40 @@ class _ComunicadosState extends State<Comunicados> {
           title: Text('Comunicados Generales'),
           backgroundColor: Color.fromARGB(255, 52, 182, 189),
         ),
+
+        //CODIGO PARA MOSTRAR LOS COMUNICADOS.
+
         body: Container(
           color: Colors.white,
           child: Column(
             children: [
-              Container(
-                // width: 100,
-                // height: 100,
-                margin: const EdgeInsets.all(10),
-                // child: Image.asset("images/rrhh_logo_persona.png"),
-                // child: Color.,
-              ),
-              const Text(
-                "Comunicados Generales",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-              ),
-
-              //----- ERROR DE EL forEach RESOLVER
-              //----- PARA EL PROXIMO SPRINT.
-
-              // comunicados.forEach((element) {
-              //   // for(var element in comun){
-              //   final Comunicado com = element;
-              //   ListTile(
-              //     leading: Icon(Icons.book),
-              //     title: Text(
-              //       (com.titulo),
-              //       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-              //     ),
-              //     subtitle: Text(com.detalle),
-              //   );
-              // }),
-
-              ListTile(
-                leading: Icon(Icons.book),
-                title: Text(comunicados[0].titulo),
-                subtitle: Text(comunicados[0].detalle),
-              ),
-              ListTile(
-                leading: Icon(Icons.book),
-                title: Text(comunicados[1].titulo),
-                subtitle: Text(comunicados[1].detalle),
-              ),
-              // ListTile(
-              //   leading: Icon(Icons.book),
-              //   title: Text(comunicados[2].titulo),
-              //   subtitle: Text(comunicados[2].detalle),
-              // ),
-              // ListTile(
-              //   leading: Icon(Icons.book),
-              //   title: Text(comun[3].titulo),
-              //   subtitle: Text(comun[3].detalle),
-              // ),
-              // ListTile(
-              //   leading: Icon(Icons.book),
-              //   title: Text(comun[4].titulo),
-              //   subtitle: Text(comun[4].detalle),
-              // ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: comunicados.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(color: Colors.blue, width: 1))),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              comunicados[index].titulo,
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              comunicados[index].detalle,
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.cyan[900]),
+                            ),
+                          ]),
+                    );
+                  },
+                ),
+              )
             ],
           ),
         ),

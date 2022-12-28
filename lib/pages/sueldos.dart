@@ -19,19 +19,6 @@ class _SueldosState extends State<Sueldos> {
       title: 'Material Appp',
       home: Scaffold(
         drawer: Drawer(
-          // child: ListView(
-          //   padding: EdgeInsets.zero,
-          //   children: [
-          //     DrawerHeader(
-          //       child: Column(
-          //         children: [
-          //           Expanded(
-          //             child: Image.asset('images/rrhh_logo_persona.png'),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ],
           child: Container(
             color: Colors.white,
             child: Column(
@@ -47,13 +34,6 @@ class _SueldosState extends State<Sueldos> {
                   "RECURSOS HUMANOS",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.only(top: 30),
-                //   padding: const EdgeInsets.all(20),
-                //   width: double.infinity,
-                //   color: Colors.grey[100],
-                //   child: const Text("Inicio"),
-                // ),
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Mi Perfil'),
@@ -134,17 +114,6 @@ class _SueldosState extends State<Sueldos> {
                 // child: Image.asset("images/rrhh_logo_persona.png"),
                 // child: Color.,
               ),
-              // const Text(
-              //   "Datos Personales",
-              //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              // ),
-              // Container(
-              //   margin: const EdgeInsets.only(top: 30),
-              //   padding: const EdgeInsets.all(20),
-              //   width: double.infinity,
-              //   color: Colors.grey[100],
-              //   child: const Text("Inicio"),
-              // ),
               const ListTile(
                 leading: Icon(Icons.calendar_month),
                 title: Text(

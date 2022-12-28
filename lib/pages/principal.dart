@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:http/http.dart' as http;
 import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
+import '../funciones_extracion.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
 
 import '../main.dart';
@@ -29,41 +30,17 @@ class PrincipalState extends State<Principal> {
       title: 'Material Appp',
       home: Scaffold(
         drawer: Drawer(
-          // child: ListView(
-          //   padding: EdgeInsets.zero,
-          //   children: [
-          //     DrawerHeader(
-          //       child: Column(
-          //         children: [
-          //           Expanded(
-          //             child: Image.asset('images/rrhh_logo_persona.png'),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ],
           child: Container(
             color: Colors.white,
             child: Column(
               children: [
                 Container(
-                  // width: 100,
-                  // height: 100,
                   margin: const EdgeInsets.all(50),
-                  // child: Image.asset("images/rrhh_logo_persona.png"),
-                  // child: Color.,
                 ),
                 const Text(
                   "RECURSOS HUMANOS",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.only(top: 30),
-                //   padding: const EdgeInsets.all(20),
-                //   width: double.infinity,
-                //   color: Colors.grey[100],
-                //   child: const Text("Inicio"),
-                // ),
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Mi Perfil'),
@@ -146,19 +123,5 @@ class PrincipalState extends State<Principal> {
         ),
       ),
     );
-  }
-
-  //En "comunicaLista" guardo lo que consumo del API.
-  Future<void> getComunicados() async {
-    final comunicaObtenidos = await http
-        .get(Uri.parse("http://10.0.2.2:8000/api/get_comunicados")); //API
-    final comunicaLista = List.from(jsonDecode(comunicaObtenidos.body));
-
-    //Los elementos dentro de "ComunicaLista", lo guardo
-    //en la lista "comunicados".
-    comunicaLista.forEach((element) {
-      final Comunicado comunicado = Comunicado.fromJson(element);
-      comunicados.add(comunicado);
-    });
   }
 }
