@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
+import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
+import 'package:si2_rrhh_movil_prueba/pages/permisos.dart';
 
 import '../main.dart';
 
@@ -62,16 +64,16 @@ class _SueldosState extends State<Sueldos> {
                   leading: Icon(Icons.timer_sharp),
                   title: Text('Marcar Hora'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
+                     Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => MarcaHora()));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.thumb_up_outlined),
                   title: Text('Solicitar Permisos'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
+                     Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => Permisos()));
                   },
                 ),
                 ListTile(

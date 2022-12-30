@@ -1,33 +1,21 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
-import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
-import 'package:http/http.dart' as http;
+import 'package:si2_rrhh_movil_prueba/main.dart';
 import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
+import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:si2_rrhh_movil_prueba/pages/permisos.dart';
-import '../funciones_extracion.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
 
-import '../main.dart';
-import '../usuario.dart';
-
-//LISTA DONDE SE GUARDAN LOS COMUNICADOS.
-List<Comunicado> comunicados = [];
-//
-
-class Principal extends StatefulWidget {
-  const Principal({super.key});
+class MarcaHora extends StatefulWidget {
+  const MarcaHora({super.key});
 
   @override
-  State<Principal> createState() => PrincipalState();
+  State<MarcaHora> createState() => _MarcaHoraState();
 }
 
-class PrincipalState extends State<Principal> {
+class _MarcaHoraState extends State<MarcaHora> {
   @override
   Widget build(BuildContext context) {
-    getComunicados();
-    return MaterialApp(
+     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
       home: Scaffold(
@@ -37,7 +25,11 @@ class PrincipalState extends State<Principal> {
             child: Column(
               children: [
                 Container(
+                  // width: 100,
+                  // height: 100,
                   margin: const EdgeInsets.all(50),
+                  // child: Image.asset("images/rrhh_logo_persona.png"),
+                  // child: Color.,
                 ),
                 const Text(
                   "RECURSOS HUMANOS",
@@ -92,17 +84,6 @@ class PrincipalState extends State<Principal> {
                   },
                 ),
                 Expanded(child: Container()),
-                Container(
-                    // margin: const EdgeInsets.only(top: 2),
-                    // padding: const EdgeInsets.all(20),
-                    // width: double.infinity,
-                    // color: Colors.black87,
-                    // alignment: Alignment.center,
-                    // child: const Text("Cerrar Sesion",
-                    //     style: TextStyle(
-                    //         color: Colors.white, fontWeight: FontWeight.bold)),
-
-                    ),
                 OutlinedButton.icon(
                     onPressed: () {
                       Navigator.push(
@@ -120,8 +101,83 @@ class PrincipalState extends State<Principal> {
           ),
         ),
         appBar: AppBar(
-          title: Text('Bienvenido $nom_empleado'),
+          title: Text('Marcar Hora'),
           backgroundColor: Color.fromARGB(255, 52, 182, 189),
+        ),
+        body: Container(
+          color: Colors.white,
+          child: Column(
+            children: [           
+              const ListTile(
+                leading: Icon(Icons.access_time_outlined, color: Colors.black),
+                title: Text(
+                  '08:36h Jueves, 3 de Septiembre',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                subtitle: Text('Turno de mañana (8:00h / 14:00h)', style: TextStyle(fontSize: 20),),
+              ),
+
+               OutlinedButton(
+              onPressed: (){}, 
+              child: Text('              COMENZAR REGISTRO              ', 
+              style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 15),),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Color.fromARGB(255, 52, 182, 189),
+                maximumSize: Size(300, 70)
+              )
+              ),
+
+               const ListTile(
+                title: Text(
+                  'Estado: Pendiente',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25,color: Colors.red,)
+                ),
+              ),
+
+              Container(
+              padding: EdgeInsets.all(7),
+              ),
+
+               const ListTile(
+                title: Text(
+                  'PERIODOS REGISTRADOS',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+              ),
+
+              const ListTile(
+                leading: Icon(Icons.check_box_outlined),
+                title: Text(
+                  'AGOSTO - 2022',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                subtitle: Text('Total Registro en: 31'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.check_box_outlined),
+                title: Text(
+                  'JULIO - 2022',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                subtitle: Text('Total Registro en: 29'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.check_box_outlined),
+                title: Text(
+                  'JUNIO - 2022',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                subtitle: Text('Total Registro en: 25'),
+              ),        const ListTile(
+                leading: Icon(Icons.check_box_outline_blank_rounded),
+                title: Text(
+                  'MAYO - 2022',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                subtitle: Text('Total Registro en: 0'),
+              ),                       
+            ],
+          ),
         ),
       ),
     );

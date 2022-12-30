@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
@@ -73,8 +74,8 @@ class _ComunicadosState extends State<Comunicados> {
                   leading: Icon(Icons.timer_sharp),
                   title: Text('Marcar Hora'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
+                     Navigator.push(context,
+                         MaterialPageRoute(builder: (context) => MarcaHora()));
                   },
                 ),
                 ListTile(
