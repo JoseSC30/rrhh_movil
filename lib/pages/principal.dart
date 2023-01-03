@@ -86,7 +86,7 @@ class PrincipalState extends State<Principal> {
                   title: Text('Cerrar Sesión'),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => MainPage()));
                   },
                 ),
                 Expanded(child: Container()),
@@ -103,10 +103,8 @@ class PrincipalState extends State<Principal> {
                     ),
                 OutlinedButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MainPage()));
                     },
                     icon: Icon(
                       Icons.exit_to_app,

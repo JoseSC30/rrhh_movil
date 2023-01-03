@@ -72,3 +72,25 @@ class Comunicado {
     );
   }
 }
+
+class Sueldo {
+  int id;
+  String monto;
+  String hora;
+  String fecha;
+
+  Sueldo(
+      {required this.id,
+      required this.monto,
+      required this.hora,
+      required this.fecha});
+
+  factory Sueldo.fromJson(Map json) {
+    return Sueldo(
+      id: json["id"],
+      monto: json["monto"],
+      hora: json["hora"],
+      fecha: json["fecha"],
+    );
+  }
+}

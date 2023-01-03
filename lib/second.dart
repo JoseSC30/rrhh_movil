@@ -25,7 +25,7 @@ class _SecondState extends State<Second> {
           OutlinedButton.icon(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => MyHomePage()));
+                    MaterialPageRoute(builder: (context) => MainPage()));
               },
               icon: Icon(
                 Icons.exit_to_app,

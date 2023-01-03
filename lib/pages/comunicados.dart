@@ -1,12 +1,15 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
+import 'package:si2_rrhh_movil_prueba/main.dart';
 import 'package:http/http.dart' as http;
 import '../funciones_extracion.dart';
 import '../main.dart';
+import '../screen/login.dart';
 import '../usuario.dart';
 
 import 'package:flutter/services.dart';
@@ -29,6 +32,27 @@ class _ComunicadosState extends State<Comunicados> {
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
       home: Scaffold(
+        appBar: AppBar(
+          // title: Text('Bienvenido $nom_empleado'),
+          backgroundColor: Color.fromARGB(255, 52, 182, 189),
+          title:
+              const Text("COMUNICADOS", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            TextButton(
+              onPressed: () {
+                sharedPreferences.clear();
+                sharedPreferences.commit();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
+              },
+              child:
+                  const Text("Log Out", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
         drawer: Drawer(
           child: Container(
             color: Colors.white,
@@ -90,17 +114,17 @@ class _ComunicadosState extends State<Comunicados> {
                   title: Text('Cerrar Sesión'),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => MainPage()));
                   },
                 ),
               ],
             ),
           ),
         ),
-        appBar: AppBar(
-          title: Text('Comunicados Generales'),
-          backgroundColor: Color.fromARGB(255, 52, 182, 189),
-        ),
+        // appBar: AppBar(
+        //   title: Text('Comunicados Generales'),
+        //   backgroundColor: Color.fromARGB(255, 52, 182, 189),
+        // ),
 
         //CODIGO PARA MOSTRAR LOS COMUNICADOS.
 

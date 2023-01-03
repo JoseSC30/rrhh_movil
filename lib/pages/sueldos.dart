@@ -3,6 +3,7 @@ import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 
 import '../main.dart';
+import '../screen/login.dart';
 
 class Sueldos extends StatefulWidget {
   const Sueldos({super.key});
@@ -18,6 +19,26 @@ class _SueldosState extends State<Sueldos> {
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
       home: Scaffold(
+        appBar: AppBar(
+          // title: Text('Bienvenido $nom_empleado'),
+          backgroundColor: Color.fromARGB(255, 52, 182, 189),
+          title: const Text("SUELDOS", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            TextButton(
+              onPressed: () {
+                sharedPreferences.clear();
+                sharedPreferences.commit();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
+              },
+              child:
+                  const Text("Log Out", style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
         drawer: Drawer(
           child: Container(
             color: Colors.white,
@@ -79,16 +100,14 @@ class _SueldosState extends State<Sueldos> {
                   title: Text('Cerrar Sesión'),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
+                        MaterialPageRoute(builder: (context) => MainPage()));
                   },
                 ),
                 Expanded(child: Container()),
                 OutlinedButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyHomePage()));
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MainPage()));
                     },
                     icon: Icon(
                       Icons.exit_to_app,
@@ -98,10 +117,6 @@ class _SueldosState extends State<Sueldos> {
               ],
             ),
           ),
-        ),
-        appBar: AppBar(
-          title: Text('Historial de Pagos'),
-          backgroundColor: Color.fromARGB(255, 52, 182, 189),
         ),
         body: Container(
           color: Colors.white,
