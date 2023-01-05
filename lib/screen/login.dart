@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 
+import '../funciones_extracion.dart';
 import '../main.dart';
 import '../usuario.dart';
 
@@ -77,6 +79,12 @@ class _LoginPageState extends State<LoginPage> {
     //var response = await http.post(Uri.parse("http://192.168.0.7:9000/api/login"), body: data);
     if (response.statusCode == 200) {
       jsonResponse = json.decode(response.body);
+      infoApi = jsonResponse;
+      //CONTINUAR.......................
+      // var dato = {
+      //   'id': jsonResponse['id'],
+      // }
+      // getSueldos(jsonResponse['id'].toString()); //
       print('Response status: ${response.statusCode}');
       print('Response body: ${response.body}');
 

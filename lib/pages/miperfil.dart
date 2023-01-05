@@ -40,8 +40,8 @@ class _MiPefilState extends State<MiPefil> {
                         builder: (BuildContext context) => const LoginPage()),
                     (Route<dynamic> route) => false);
               },
-              child:
-                  const Text("Log Out", style: TextStyle(color: Colors.white)),
+              child: const Text("Cerrar Sesión",
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -60,14 +60,6 @@ class _MiPefilState extends State<MiPefil> {
                 "Datos Personales",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              // Container(
-              //   margin: const EdgeInsets.only(top: 30),
-              //   padding: const EdgeInsets.all(20),
-              //   width: double.infinity,
-              //   color: Colors.grey[100],
-              //   child: const Text("Inicio"),
-              // ),
-              // var hola = "holanda",
               ListTile(
                 leading: Icon(Icons.person),
                 title: Text('Nombre'),
@@ -118,13 +110,6 @@ class _MiPefilState extends State<MiPefil> {
                   "RECURSOS HUMANOS",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.only(top: 30),
-                //   padding: const EdgeInsets.all(20),
-                //   width: double.infinity,
-                //   color: Colors.grey[100],
-                //   child: const Text("Inicio"),
-                // ),
                 ListTile(
                   leading: Icon(Icons.person),
                   title: Text('Mi Perfil'),
@@ -153,16 +138,16 @@ class _MiPefilState extends State<MiPefil> {
                   leading: Icon(Icons.timer_sharp),
                   title: Text('Marcar Hora'),
                   onTap: () {
-                     Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => MarcaHora()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MarcaHora()));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.thumb_up_outlined),
                   title: Text('Solicitar Permiso'),
                   onTap: () {
-                     Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => Permisos()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Permisos()));
                   },
                 ),
               ],

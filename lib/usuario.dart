@@ -1,3 +1,5 @@
+
+
 class User {
   int id;
   String usuario;
@@ -75,12 +77,14 @@ class Comunicado {
 
 class Sueldo {
   int id;
-  String monto;
+  int empleado_id;
+  int monto;
   String hora;
   String fecha;
 
   Sueldo(
       {required this.id,
+      required this.empleado_id,
       required this.monto,
       required this.hora,
       required this.fecha});
@@ -88,9 +92,60 @@ class Sueldo {
   factory Sueldo.fromJson(Map json) {
     return Sueldo(
       id: json["id"],
+      empleado_id: json["empleado_id"],
       monto: json["monto"],
       hora: json["hora"],
       fecha: json["fecha"],
+    );
+  }
+}
+
+class Permiso {
+  int id;
+  int usuariomovil_id;
+  String detalle;
+  String hora;
+  String fecha;
+
+  Permiso(
+      {required this.id,
+      required this.usuariomovil_id,
+      required this.detalle,
+      required this.hora,
+      required this.fecha});
+
+  factory Permiso.fromJson(Map json) {
+    return Permiso(
+      id: json["id"],
+      usuariomovil_id: json["usuariomovil_id"],
+      detalle: json["detalle"],
+      hora: json["hora"],
+      fecha: json["fecha"],
+    );
+  }
+}
+
+class Asistencia {
+  int id;
+  String hora_llegada;
+  String hora_salida;
+  String fecha;
+  int usuariomovil_id;
+
+  Asistencia(
+      {required this.id,
+      required this.hora_llegada,
+      required this.hora_salida,
+      required this.fecha,
+      required this.usuariomovil_id});
+
+  factory Asistencia.fromJson(Map json) {
+    return Asistencia(
+      id: json["id"],
+      hora_llegada: json["hora_llegada"],
+      hora_salida: json["hora_salida"],
+      fecha: json["fecha"],
+      usuariomovil_id: json["usuariomovil_id"],
     );
   }
 }

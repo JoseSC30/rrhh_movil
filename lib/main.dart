@@ -2,7 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+// import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
 import 'package:si2_rrhh_movil_prueba/screen/login.dart';
 
 import 'package:http/http.dart' as http;
@@ -59,139 +61,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-/*
-  var usuarioController = TextEditingController();
-  var passwordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SafeArea(
-            child: Center(
-                child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextFormField(
-              controller: usuarioController,
-              decoration: InputDecoration(
-                  labelText: "Usuario",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.person_sharp)),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                  labelText: "Contraseña",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.password)),
-            ),
-            SizedBox(
-              height: 45,
-            ),
-            OutlinedButton.icon(
-                onPressed: () {
-                  // login();
-                  getUsers();
-                },
-                icon: Icon(
-                  Icons.login,
-                  size: 18,
-                ),
-                label: Text("Iniciar Sesión")),
-          ],
-        ))),
-      ),
-    );
-  }
-
-  //CREANDO FUNCION PARA LLAMAR LOGIN POST API
-  // Future<void> login() async {
-  //   if (passwordController.text.isNotEmpty &&
-  //       usuarioController.text.isNotEmpty) {
-  //     var response = await http.post(
-  //         Uri.parse("http://192.168.0.8/api/cuentas"),
-  //         body: ({
-  //           'usuario': usuarioController.text,
-  //           'password': passwordController.text
-  //         }));
-  //     if (response.statusCode == 200) {
-  //       Navigator.push(
-  //           context, MaterialPageRoute(builder: (context) => Second()));
-  //     } else {
-  //       ScaffoldMessenger.of(context)
-  //           .showSnackBar(SnackBar(content: Text("Invalid Credentials.")));
-  //     }
-  //   } else {
-  //     ScaffoldMessenger.of(context)
-  //         .showSnackBar(SnackBar(content: Text("Black Field Not Allowed")));
-  //   }
-  // }
-
-  Future<void> getUsers() async {
-    final res =
-        await http.get(Uri.parse("http://10.0.2.2:8000/api/get_usuariomovils"));
-    final lista = List.from(jsonDecode(res.body));
-
-    List<User> users = [];
-    lista.forEach((element) {
-      final User user = User.fromJson(element);
-      users.add(user);
-    });
-
-    var login = false;
-    users.forEach((element) {
-      final User uss = element;
-      if ((usuarioController.text == uss.usuario) &&
-          (passwordController.text == uss.contrasena)) {
-        login = true;
-        nom_empleado = usuarioController.text;
-        usuariomovil_id = uss.id;
-      }
-    });
-
-    final empleadoObtenido =
-        await http.get(Uri.parse("http://10.0.2.2:8000/api/get_empleados"));
-    final empleLista = List.from(jsonDecode(empleadoObtenido.body));
-
-    List<Empleado> empleados = [];
-    empleLista.forEach((element) {
-      final Empleado empleado = Empleado.fromJson(element);
-      empleados.add(empleado);
-    });
-
-    empleados.forEach((element) {
-      final Empleado emp = element;
-      if ((usuariomovil_id.toString() == emp.usuariomovil)) {
-        aa = emp.nombre;
-        bb = emp.ci;
-        cc = emp.fnacimiento;
-        dd = emp.sexo;
-        ee = emp.direccion;
-        ff = emp.puestolaboral;
-      }
-    });
-
-    if (login) {
-      Navigator.push(
-          // context, MaterialPageRoute(builder: (context) => Second()));
-          context,
-          MaterialPageRoute(builder: (context) => Principal()));
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Invalid Credentials.")));
-    }
-  }
-
-*/
-
-  // late SharedPreferences sharedPreferences;
-
   @override
   void initState() {
     super.initState();
@@ -230,8 +99,8 @@ class _MainPageState extends State<MainPage> {
                         builder: (BuildContext context) => const LoginPage()),
                     (Route<dynamic> route) => false);
               },
-              child:
-                  const Text("Log Out", style: TextStyle(color: Colors.white)),
+              child: const Text("Cerrar Sesión",
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -275,8 +144,8 @@ class _MainPageState extends State<MainPage> {
                   leading: Icon(Icons.timer_sharp),
                   title: Text('Marcar Hora'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MarcaHora()));
                   },
                 ),
                 ListTile(

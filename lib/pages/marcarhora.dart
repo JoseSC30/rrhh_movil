@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:si2_rrhh_movil_prueba/funciones_extracion.dart';
 import 'package:si2_rrhh_movil_prueba/main.dart';
 import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
 import 'package:si2_rrhh_movil_prueba/pages/permisos.dart';
+import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
+import 'package:si2_rrhh_movil_prueba/screen/login.dart';
 
 class MarcaHora extends StatefulWidget {
   const MarcaHora({super.key});
@@ -15,21 +18,62 @@ class MarcaHora extends StatefulWidget {
 class _MarcaHoraState extends State<MarcaHora> {
   @override
   Widget build(BuildContext context) {
+    getAsistencias();
+    guardarAsistenciasDelEmpleado();
+    var now = DateTime.now();
+    var hour = now.hour - 4;
+    if (hour == -4) {
+      hour = 20;
+    } else {
+      if (hour == -3) {
+        hour = 21;
+      } else {
+        if (hour == -2) {
+          hour = 22;
+        } else {
+          if (hour == -1) {
+            hour = 23;
+          }
+        }
+      }
+    }
+    var minute = now.minute;
+    var second = now.second;
+    var year = now.year;
+    var month = now.month;
+    var day = now.day;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
       home: Scaffold(
+        appBar: AppBar(
+          // title: Text('Bienvenido $nom_empleado'),
+          backgroundColor: Color.fromARGB(255, 52, 182, 189),
+          title:
+              const Text("Marcar Hora", style: TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            TextButton(
+              onPressed: () {
+                sharedPreferences.clear();
+                sharedPreferences.commit();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
+              },
+              child: const Text("Cerrar Sesión",
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
         drawer: Drawer(
           child: Container(
             color: Colors.white,
             child: Column(
               children: [
                 Container(
-                  // width: 100,
-                  // height: 100,
                   margin: const EdgeInsets.all(50),
-                  // child: Image.asset("images/rrhh_logo_persona.png"),
-                  // child: Color.,
                 ),
                 const Text(
                   "RECURSOS HUMANOS",
@@ -79,29 +123,27 @@ class _MarcaHoraState extends State<MarcaHora> {
             ),
           ),
         ),
-        appBar: AppBar(
-          title: Text('Marcar Hora'),
-          backgroundColor: Color.fromARGB(255, 52, 182, 189),
-        ),
         body: Container(
           color: Colors.white,
           child: Column(
             children: [
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.access_time_outlined, color: Colors.black),
                 title: Text(
-                  '08:36h Jueves, 3 de Septiembre',
+                  "Hora y Fecha a Registrar.",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
                 subtitle: Text(
-                  'Turno de mañana (8:00h / 14:00h)',
-                  style: TextStyle(fontSize: 20),
+                  'Hora: ${hour}:${minute}:${second} \nFecha: ${day}/${month}/${year}',
+                  style: TextStyle(fontSize: 22),
                 ),
               ),
               OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    marcarLlegada();
+                  },
                   child: Text(
-                    '              COMENZAR REGISTRO              ',
+                    'Marcar Llegada',
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -110,14 +152,20 @@ class _MarcaHoraState extends State<MarcaHora> {
                   style: OutlinedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 52, 182, 189),
                       maximumSize: Size(300, 70))),
-              const ListTile(
-                title: Text('Estado: Pendiente',
+              OutlinedButton(
+                  onPressed: () {
+                    marcarSalida();
+                  },
+                  child: Text(
+                    'Marcar Salida',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      color: Colors.red,
-                    )),
-              ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 52, 182, 189),
+                      maximumSize: Size(300, 70))),
               Container(
                 padding: EdgeInsets.all(7),
               ),
@@ -127,38 +175,34 @@ class _MarcaHoraState extends State<MarcaHora> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
                 ),
               ),
-              const ListTile(
-                leading: Icon(Icons.check_box_outlined),
-                title: Text(
-                  'AGOSTO - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: asistenciasE.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(color: Colors.blue, width: 1))),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ListTile(
+                              leading: Icon(Icons.timer_sharp),
+                              title: Text(
+                                "Fecha: ${asistenciasE[index].fecha}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              subtitle: Text(
+                                  "Hora Llegada: ${asistenciasE[index].hora_llegada}\nHora Salida: ${asistenciasE[index].hora_salida}"),
+                            ),
+                          ]),
+                    );
+                  },
                 ),
-                subtitle: Text('Total Registro en: 31'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.check_box_outlined),
-                title: Text(
-                  'JULIO - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                subtitle: Text('Total Registro en: 29'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.check_box_outlined),
-                title: Text(
-                  'JUNIO - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                subtitle: Text('Total Registro en: 25'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.check_box_outline_blank_rounded),
-                title: Text(
-                  'MAYO - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                subtitle: Text('Total Registro en: 0'),
-              ),
+              )
             ],
           ),
         ),

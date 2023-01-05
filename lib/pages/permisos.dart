@@ -1,8 +1,13 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:si2_rrhh_movil_prueba/funciones_extracion.dart';
 import 'package:si2_rrhh_movil_prueba/main.dart';
 import 'package:si2_rrhh_movil_prueba/pages/comunicados.dart';
 import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
+import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
+import 'package:si2_rrhh_movil_prueba/screen/login.dart';
 
 import 'sueldos.dart';
 
@@ -13,13 +18,48 @@ class Permisos extends StatefulWidget {
   State<Permisos> createState() => _PermisosState();
 }
 
+final detalle = TextEditingController();
+
 class _PermisosState extends State<Permisos> {
   @override
   Widget build(BuildContext context) {
+    getPermisos();
+    guardarPermisosDelEmpleado();
+    // final detalle = TextEditingController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
       home: Scaffold(
+        //BOTTON
+        // floatingActionButton: FloatingActionButton(
+        //     onPressed: () {}, child: const Icon(Icons.add)),
+        floatingActionButton: FloatingActionButton.extended(
+            label: const Text('Solicitar Permiso'),
+            icon: const Icon(Icons.add),
+            onPressed: showForm),
+        //
+
+        appBar: AppBar(
+          // title: Text('Bienvenido $nom_empleado'),
+          backgroundColor: Color.fromARGB(255, 52, 182, 189),
+          title: const Text("Historial Permisos",
+              style: TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            // ignore: deprecated_member_use
+            TextButton(
+              onPressed: () {
+                sharedPreferences.clear();
+                sharedPreferences.commit();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                    (Route<dynamic> route) => false);
+              },
+              child: const Text("Cerrar Sesión",
+                  style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
         drawer: Drawer(
           child: Container(
             color: Colors.white,
@@ -72,76 +112,88 @@ class _PermisosState extends State<Permisos> {
                   leading: Icon(Icons.thumb_up_outlined),
                   title: Text('Solicitar Permisos'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Permisos()));
                   },
                 ),
               ],
             ),
           ),
         ),
-        appBar: AppBar(
-          title: Text('Permisos'),
-          backgroundColor: Color.fromARGB(255, 52, 182, 189),
-        ),
         body: Container(
           color: Colors.white,
           child: Column(
             children: [
-              Container(
-                // width: 100,
-                // height: 100,
-                margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
-                child: TextField(
-                  autofocus: true,
-                  maxLength: 400,
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.admin_panel_settings_outlined),
-                    hintText: 'Escriba el motivo aqui',
-                  ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: permisosE.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom:
+                                  BorderSide(color: Colors.blue, width: 1))),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text(
+                            //   "Detalle del Permiso: ${permisosE[index].detalle}",
+                            //   style: TextStyle(fontSize: 16),
+                            // ),
+                            ListTile(
+                              leading: Icon(Icons.linear_scale_rounded),
+                              title: Text(
+                                "Detalle: ${permisosE[index].detalle}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 15),
+                              ),
+                              subtitle:
+                                  Text("Fecha: ${permisosE[index].fecha}"),
+                            ),
+                          ]),
+                    );
+                  },
                 ),
-              ),
-              OutlinedButton(
-                  onPressed: () {},
-                  child: Text(
-                    'SOLICITAR',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
-                  ),
-                  style: OutlinedButton.styleFrom(
-                    backgroundColor: Colors.cyan[400],
-                  )),
-              Container(
-                padding: EdgeInsets.all(10),
-              ),
-              const ListTile(
-                title: Text(
-                  'HISTORIAL',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                ),
-              ),
-              const ListTile(
-                leading: Icon(Icons.linear_scale_rounded),
-                title: Text(
-                  'PERMISO SEPTIEMBRE - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                subtitle: Text('Permiso en fecha: 14-05-2022'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.linear_scale_rounded),
-                title: Text(
-                  'PERMISO MARZO - 2022',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                subtitle: Text('Permiso en fecha: 16-04-2022'),
-              ),
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  showForm() {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+              title: const Text("Motivo del permiso"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: detalle,
+                    decoration:
+                        InputDecoration(hintText: "Motivo del permiso."),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Cancelar"),
+                ),
+                TextButton(
+                  onPressed: () {
+                    enviarSolicitudPermiso();
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("Guardar"),
+                )
+              ]);
+        });
   }
 }

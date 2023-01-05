@@ -14,8 +14,24 @@ import '../usuario.dart';
 
 //LISTA DONDE SE GUARDAN LOS COMUNICADOS.
 List<Comunicado> comunicados = [];
-//
+//LISTA DONDE SE GUARDAN LOS SUELDOS.
+List<Sueldo> sueldos = [];
+//LISTA DONDE SE GUARDAN LOS SUELDOS del EMPLEADO.
+List<Sueldo> sueldosE = [];
+//LISTA DONDE SE GUARDAN LOS PERMISOS.
+List<Permiso> permisos = [];
+//LISTA DONDE SE GUARDAN LOS PERMISOS del EMPLEADO.
+List<Permiso> permisosE = [];
 
+//LISTA DONDE SE GUARDAN LAS ASISTENCIAS.
+List<Asistencia> asistencias = [];
+//LISTA DONDE SE GUARDAN LAS ASISTENCIAS del EMPLEADO.
+List<Asistencia> asistenciasE = [];
+
+//Variable donde se guarda la informacion del API.
+var infoApi;
+
+//
 class Principal extends StatefulWidget {
   const Principal({super.key});
 
@@ -27,6 +43,15 @@ class PrincipalState extends State<Principal> {
   @override
   Widget build(BuildContext context) {
     getComunicados();
+
+    getSueldos();
+    guardarSueldosDelEmpleado();
+
+    getAsistencias();
+    guardarAsistenciasDelEmpleado();
+
+    getPermisos();
+    guardarPermisosDelEmpleado();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material Appp',
@@ -71,16 +96,16 @@ class PrincipalState extends State<Principal> {
                   leading: Icon(Icons.timer_sharp),
                   title: Text('Marcar Hora'),
                   onTap: () {
-                     Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => MarcaHora()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MarcaHora()));
                   },
                 ),
                 ListTile(
                   leading: Icon(Icons.thumb_up_outlined),
                   title: Text('Solicitar Permisos'),
                   onTap: () {
-                     Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => Permisos()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Permisos()));
                   },
                 ),
                 ListTile(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:si2_rrhh_movil_prueba/pages/marcarhora.dart';
 import 'package:si2_rrhh_movil_prueba/pages/miperfil.dart';
+import 'package:si2_rrhh_movil_prueba/pages/permisos.dart';
 import 'package:si2_rrhh_movil_prueba/pages/principal.dart';
 import 'package:si2_rrhh_movil_prueba/pages/sueldos.dart';
 import 'package:si2_rrhh_movil_prueba/main.dart';
@@ -48,8 +49,8 @@ class _ComunicadosState extends State<Comunicados> {
                         builder: (BuildContext context) => const LoginPage()),
                     (Route<dynamic> route) => false);
               },
-              child:
-                  const Text("Log Out", style: TextStyle(color: Colors.white)),
+              child: const Text("Cerrar Sesión",
+                  style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -105,26 +106,14 @@ class _ComunicadosState extends State<Comunicados> {
                   leading: Icon(Icons.thumb_up_outlined),
                   title: Text('Solicitar Permisos'),
                   onTap: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => MyHomePage()));
-                  },
-                ),
-                ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text('Cerrar Sesión'),
-                  onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MainPage()));
+                        MaterialPageRoute(builder: (context) => Permisos()));
                   },
                 ),
               ],
             ),
           ),
         ),
-        // appBar: AppBar(
-        //   title: Text('Comunicados Generales'),
-        //   backgroundColor: Color.fromARGB(255, 52, 182, 189),
-        // ),
 
         //CODIGO PARA MOSTRAR LOS COMUNICADOS.
 
@@ -132,6 +121,12 @@ class _ComunicadosState extends State<Comunicados> {
           color: Colors.white,
           child: Column(
             children: [
+              const ListTile(
+                title: Text(
+                  'ULTIMOS COMUNICADOS',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: comunicados.length,
